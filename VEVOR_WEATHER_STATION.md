@@ -78,8 +78,26 @@ DIP switches (ON vers l'inscription "ON") :
 
 ```
 Bloc CSN (1..4)        : 1 = ON, 2-4 = OFF   -> GPIO25
-Bloc GDO2/GDO0 (1..6)  : 1 = ON, 5 = ON, sinon OFF -> GDO2=35, GDO0=13
+Bloc GDO2/GDO0 (1..6)  : 1 = ON, 5 = ON, DIP 2/3/4/6 = OFF -> GDO2=35, GDO0=13
 ```
+
+Détail du bloc GDO2/GDO0 (6 positions, réparties 3 + 3) :
+
+- Les positions **1..3** routent **GDO0**, les positions **4..6** routent **GDO2**.
+- GDO0 et GDO2 partagent les **mêmes 3 IO sélectionnables** sur le M-Bus
+  (broches droites 2/20/22 = **GPIO35 / GPIO13 / GPIO14** sur Core2) ;
+  il faut donc n'activer qu'un seul switch par signal, sur des GPIO différents.
+- Pour cette application :
+
+```
+DIP 1 = ON         -> GDO0 = GPIO13
+DIP 5 = ON         -> GDO2 = GPIO35
+DIP 2/3/4/6 = OFF  -> ne route PAS GDO0/GDO2 vers GPIO35 / GPIO14
+```
+
+DIP 6 en position OFF est **important** : positionné ON, il routerait GDO2
+vers GPIO14 (3e IO du bloc) au lieu de GPIO35, ce qui ne correspond plus aux
+flags `RF_MODULE_GDO0=13` / `RF_MODULE_GDO2=35` du firmware.
 
 SPI sur le M-Bus du Core2 : MOSI=23, MISO=38, SCK=18.
 Antenne : 868 MHz (module 855‑925 MHz).
