@@ -176,13 +176,13 @@
 #endif
 
 #ifndef MQTT_USER
-#  define MQTT_USER "your_username"
+#  define MQTT_USER ""
 #endif
 #ifndef MQTT_PASS
-#  define MQTT_PASS "your_password"
+#  define MQTT_PASS ""
 #endif
 #ifndef MQTT_SERVER
-#  define MQTT_SERVER "192.168.1.17"
+#  define MQTT_SERVER "192.168.1.140"
 #endif
 #ifndef MQTT_PORT
 #  define MQTT_PORT "1883"
@@ -386,7 +386,7 @@ extern ss_cnt_parameters cnt_parameters_array[];
 
 /*-------------DEFINE YOUR MQTT ADVANCED PARAMETERS BELOW----------------*/
 #ifndef will_Topic
-#  define will_Topic "/LWT"
+#  define will_Topic "/OMG868"
 #endif
 #ifndef will_QoS
 #  define will_QoS 0
